@@ -17,6 +17,7 @@ const App = () => {
   const [votearray, setarray] = useState(new Array(anecdotes.length).fill(0))
   const [votecount,setcount]=useState(0);
   const [mostan,setan]=useState(anecdotes[0])
+  const [maxvotecount,setmaxvotecout]=useState(0)
 
   const diffrand =(e)=> {
 
@@ -34,6 +35,7 @@ const App = () => {
     setarray(newarray) 
     setcount(newarray[e]);
     setan(anecdotes[newarray.indexOf(Math.max(...newarray))])
+    setmaxvotecout(Math.max(...newarray))
   }
 
 
@@ -45,7 +47,7 @@ const App = () => {
       <h1> Anecdote of the day</h1>
 
       <p> {anecdotes[selected]}</p>
-      <p> has {votecount} votes! </p>
+      <p> has {votecount} votes </p>
 
       <button onClick={()=>{diffrand(selected)}}>next anecdotes</button>
       <button onClick={()=>{vote(selected)}} >vote</button>
@@ -54,6 +56,7 @@ const App = () => {
       <h1> Anecdote with the most votes </h1>
 
       <p> {mostan}</p>
+      <p>has {maxvotecount} votes </p>
 
 
 
