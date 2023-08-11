@@ -2,6 +2,35 @@
 import { useState } from 'react'
 
 
+const Button = (props)=><button onClick={props.fn}>{props.text}</button>
+
+const StatisticLine = (props)=>  <table><tfoot><tr><td>{props.text} {props.value}</td></tr></tfoot></table>
+
+
+/*a table for each stat line, didnt really find a way to make a good table */
+
+const Statistics = (props) => {
+
+  let stats =<p>no feedback given </p>
+  const clicks = props.clicks
+  const sum = Object.values(clicks).reduce((e,sum) => e+sum,0);
+  if(sum>0){
+    stats =   
+    <div>
+      <header>Satistics</header>
+    <StatisticLine text="good" value={clicks.good}></StatisticLine>
+    <StatisticLine text="neutral" value={clicks.neutral}></StatisticLine>
+    <StatisticLine text="bad" value={clicks.bad}></StatisticLine>
+    <StatisticLine text="all" value={sum}></StatisticLine>
+    <StatisticLine text="avarage" value={(clicks.good-clicks.bad)/sum}></StatisticLine>
+    <StatisticLine text="positive" value={100*(clicks.good)/sum}></StatisticLine>
+   </div>
+  }
+  return stats
+}
+
+
+
 
 const App = () => {
   const [clicks, setClicks] = useState({
@@ -9,8 +38,7 @@ const App = () => {
   })
 
   const handlebadtClick = () =>
-  {setClicks({ ...clicks, bad: clicks.bad + 1 })
-    console.log(clicks)}
+  {setClicks({ ...clicks, bad: clicks.bad + 1 })}
 
 const handleGoodClick = () =>
   setClicks({ ...clicks, good: clicks.good + 1 })
@@ -20,23 +48,17 @@ const handleneutralClick = () =>
 
 
 
-  const sum = Object.values(clicks).reduce((e,sum) => e+sum,0);
 
 
 
   return (
     <div>
-      <button onClick={handleGoodClick}>good</button>
-      <button onClick={handleneutralClick}>neutral</button>
-      <button onClick={handlebadtClick}>bad</button>
-     <header>Stastistics</header>
-    <p>bad :{clicks.bad}</p>
-    <p>neutral :{clicks.neutral}</p>
-    <p>good :{clicks.good}</p>
-    <p>all : {sum}</p>
-    <p>avarage : {(clicks.good-clicks.bad)/sum}</p>
-    <p>positive : {100*(clicks.good)/sum}% </p>
+      <header>give feedback</header>
 
+    <Button text ="good" fn = {handleGoodClick} />
+    <Button text ="neutral" fn = {handleneutralClick} />
+    <Button text ="bad" fn = {handlebadtClick} />
+    <Statistics clicks= {clicks} />
 
     </div>
   )
