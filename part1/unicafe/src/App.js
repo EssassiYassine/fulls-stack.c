@@ -53,7 +53,7 @@ const handleneutralClick = () =>
 
   return (
     <div>
-      <header>give feedback</header>
+      <h1>give feedback</h1>
 
     <Button text ="good" fn = {handleGoodClick} />
     <Button text ="neutral" fn = {handleneutralClick} />
